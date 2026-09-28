@@ -30,7 +30,10 @@ let modDiv=document.querySelector(".modDiv")
 modDiv.style.visibility="hidden"
 
 function mentes(){
-    let nev=document.getElementById("nevIn").value
+    const kiIras = document.getElementById("kiIras");
+    let nevIn=document.getElementById("nevIn").value
+    let osztIn=document.getElementById("osztIn").value
+    let tanAvgIn=document.getElementById("tanAvgIn").value
     tanulok.push({
     nev: document.getElementById("nevIn").value,
     osztaly: document.getElementById("osztIn").value,
@@ -40,6 +43,33 @@ function mentes(){
 
 
     tablaFrissites();
+
+    try {
+        const nevRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ ]+$/;
+
+        const osztalyRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9.]+$/;
+
+        const atlagRegex = /^\d+(,\d+)?$/;
+
+        if (!nevRegex.test(nevIn)) {
+            throw new Error("Helytelen");
+        }
+
+        else (nevIn === "" |osztIn === ""|tanAvgIn === "") {
+            throw new Error("A mező(k) nem lehet(nek) üres(ek!");
+        }
+
+        const honapIn = Number(modHonapInput);
+        const adatok = Honapkereses(honapIn);
+
+
+        adatok.unnep = ujUnnep;
+
+        kiIras.textContent = `Sikeres módosítás!`
+    }
+    catch(error){
+        kiIras.textContent = `Hiba: ${error.message}`;
+    }
 }
 
 function tablaFrissites() {
@@ -107,8 +137,4 @@ function modositas(i) {
     tablaFrissites();
 }
 
-const nevRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ ]+$/;
 
-const osztalyRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9.]+$/;
-
-const atlagRegex = /^\d+(,\d+)?$/;
