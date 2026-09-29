@@ -27,52 +27,34 @@ let tanulok=[
 ]
 
 let modDiv=document.querySelector(".modDiv")
-modDiv.style.visibility="hidden"
+modDiv.style.display="none"
+let kijeloltTanulo = null
 
-function mentes(){
-    const kiIras = document.getElementById("kiIras");
-    let nevIn=document.getElementById("nevIn").value
-    let osztIn=document.getElementById("osztIn").value
-    let tanAvgIn=document.getElementById("tanAvgIn").value
+tablaFrissites()
+
+function mentes() {
+    const nevIn = document.getElementById("nevIn");
+    const osztIn = document.getElementById("osztIn");
+    const tanAvgIn = document.getElementById("tanAvgIn");
+
     tanulok.push({
-    nev: document.getElementById("nevIn").value,
-    osztaly: document.getElementById("osztIn").value,
-    atlag: document.getElementById("tanAvgIn").value
-});
-    console.log(tanulok)
+        nev: nevIn.value,
+        osztaly: osztIn.value,
+        atlag: tanAvgIn.value
+    });
 
+    nevIn.value = "";
+    osztIn.value = "";
+    tanAvgIn.value = "";
 
     tablaFrissites();
-
-    try {
-        const nevRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ ]+$/;
-
-        const osztalyRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9.]+$/;
-
-        const atlagRegex = /^\d+(,\d+)?$/;
-
-        if (!nevRegex.test(nevIn)) {
-            throw new Error("Helytelen");
-        }
-
-        else (nevIn === "" |osztIn === ""|tanAvgIn === "") {
-            throw new Error("A mező(k) nem lehet(nek) üres(ek!");
-        }
-
-        const honapIn = Number(modHonapInput);
-        const adatok = Honapkereses(honapIn);
-
-
-        adatok.unnep = ujUnnep;
-
-        kiIras.textContent = `Sikeres módosítás!`
-    }
-    catch(error){
-        kiIras.textContent = `Hiba: ${error.message}`;
-    }
 }
 
 function tablaFrissites() {
+    let ujNev = document.getElementById("ujnevIn").innerHTML=""
+    let ujOsztaly = document.getElementById("ujosztIn").innerHTML=""
+    let ujAtlag = document.getElementById("ujtanAvgIn").innerHTML=""
+
     const thead = document.querySelector("#data-table thead tr");
     const tbody = document.querySelector("#data-table tbody");
 
@@ -123,17 +105,26 @@ function torles(i){
 }
 
 function modositas(i) {
-    let tanulo = tanulok[i];
-    modDiv.style.visibility="visible"
+    kijeloltTanulo = i;
+    const tanulo = tanulok[i];
 
-    let ujNev = document.getElementById("ujnevIn").value
-    let ujOsztaly = document.getElementById("ujosztIn").value
-    let ujAtlag = document.getElementById("ujtanAvgIn").value
+    document.getElementById("ujnevIn").value = tanulo.nev;
+    document.getElementById("ujosztIn").value = tanulo.osztaly;
+    document.getElementById("ujtanAvgIn").value = tanulo.atlag;
+    modDiv.style.display = "flex";
+}
 
-    tanulo.nev = ujNev;
-    tanulo.osztaly = ujOsztaly;
-    tanulo.atlag = ujAtlag;
+function modositasMentes() {
+    if (kijeloltTanulo === null) return;
 
+    tanulok[kijeloltTanulo] = {
+        nev: document.getElementById("ujnevIn").value,
+        osztaly: document.getElementById("ujosztIn").value,
+        atlag: document.getElementById("ujtanAvgIn").value
+    };
+
+    kijeloltTanulo = null;
+    modDiv.style.display = "none";
     tablaFrissites();
 }
 
