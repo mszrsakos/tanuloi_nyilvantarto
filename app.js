@@ -27,7 +27,7 @@ let tanulok=[
 ]
  
 let modDiv=document.querySelector(".modDiv")
-modDiv.style.display="none"
+
 let kijeloltTanulo = null
 
 tablaFrissites()
@@ -124,7 +124,6 @@ function modositasMentes() {
 const keresoMezo = document.getElementById("keresoMezo");
 const tabla = document.getElementById("data-table");
 
-tabla.style.display = "none";
 
 keresoMezo.addEventListener('input', function() {
     const keresettSzo = keresoMezo.value.trim().toLowerCase();
