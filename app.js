@@ -27,34 +27,25 @@ let tanulok=[
 ]
  
 let modDiv=document.querySelector(".modDiv")
-modDiv.style.display="none"
-let kijeloltTanulo = null
- 
-tablaFrissites()
- 
-function mentes() {
-    const nevIn = document.getElementById("nevIn");
-    const osztIn = document.getElementById("osztIn");
-    const tanAvgIn = document.getElementById("tanAvgIn");
- 
+modDiv.style.visibility="hidden"
+
+function mentes(){
+    const kiIras = document.getElementById("kiIras");
+    let nevIn=document.getElementById("nevIn").value
+    let osztIn=document.getElementById("osztIn").value
+    let tanAvgIn=document.getElementById("tanAvgIn").value
     tanulok.push({
-        nev: nevIn.value,
-        osztaly: osztIn.value,
-        atlag: tanAvgIn.value
-    });
- 
-    nevIn.value = "";
-    osztIn.value = "";
-    tanAvgIn.value = "";
- 
+    nev: document.getElementById("nevIn").value,
+    osztaly: document.getElementById("osztIn").value,
+    atlag: document.getElementById("tanAvgIn").value
+});
+    console.log(tanulok)
+
+
     tablaFrissites();
 }
  
 function tablaFrissites() {
-    let ujNev = document.getElementById("ujnevIn").innerHTML=""
-    let ujOsztaly = document.getElementById("ujosztIn").innerHTML=""
-    let ujAtlag = document.getElementById("ujtanAvgIn").innerHTML=""
- 
     const thead = document.querySelector("#data-table thead tr");
     const tbody = document.querySelector("#data-table tbody");
  
@@ -105,26 +96,17 @@ function torles(i){
 }
  
 function modositas(i) {
-    kijeloltTanulo = i;
-    const tanulo = tanulok[i];
- 
-    document.getElementById("ujnevIn").value = tanulo.nev;
-    document.getElementById("ujosztIn").value = tanulo.osztaly;
-    document.getElementById("ujtanAvgIn").value = tanulo.atlag;
-    modDiv.style.display = "flex";
-}
- 
-function modositasMentes() {
-    if (kijeloltTanulo === null) return;
- 
-    tanulok[kijeloltTanulo] = {
-        nev: document.getElementById("ujnevIn").value,
-        osztaly: document.getElementById("ujosztIn").value,
-        atlag: document.getElementById("ujtanAvgIn").value
-    };
- 
-    kijeloltTanulo = null;
-    modDiv.style.display = "none";
+    let tanulo = tanulok[i];
+    modDiv.style.visibility="visible"
+
+    let ujNev = document.getElementById("ujnevIn").value
+    let ujOsztaly = document.getElementById("ujosztIn").value
+    let ujAtlag = document.getElementById("ujtanAvgIn").value
+
+    tanulo.nev = ujNev;
+    tanulo.osztaly = ujOsztaly;
+    tanulo.atlag = ujAtlag;
+
     tablaFrissites();
 }
  
