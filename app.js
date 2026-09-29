@@ -27,7 +27,10 @@ let tanulok=[
 ]
  
 let modDiv=document.querySelector(".modDiv")
-modDiv.style.visibility="hidden"
+modDiv.style.display="none"
+let kijeloltTanulo = null
+
+tablaFrissites()
 
 function mentes(){
     const kiIras = document.getElementById("kiIras");
@@ -96,20 +99,28 @@ function torles(i){
 }
  
 function modositas(i) {
-    let tanulo = tanulok[i];
-    modDiv.style.visibility="visible"
+    kijeloltTanulo = i;
+    const tanulo = tanulok[i];
 
-    let ujNev = document.getElementById("ujnevIn").value
-    let ujOsztaly = document.getElementById("ujosztIn").value
-    let ujAtlag = document.getElementById("ujtanAvgIn").value
+    document.getElementById("ujnevIn").value = tanulo.nev;
+    document.getElementById("ujosztIn").value = tanulo.osztaly;
+    document.getElementById("ujtanAvgIn").value = tanulo.atlag;
+    modDiv.style.display = "flex";
+}
 
-    tanulo.nev = ujNev;
-    tanulo.osztaly = ujOsztaly;
-    tanulo.atlag = ujAtlag;
+function modositasMentes() {
+    if (kijeloltTanulo === null) return;
 
+    tanulok[kijeloltTanulo] = {
+        nev: document.getElementById("ujnevIn").value,
+        osztaly: document.getElementById("ujosztIn").value,
+        atlag: document.getElementById("ujtanAvgIn").value
+    };
+
+    kijeloltTanulo = null;
+    modDiv.style.display = "none";
     tablaFrissites();
 }
- 
 const keresoMezo = document.getElementById("keresoMezo");
 const Elemek = document.querySelectorAll("#data-table tbody tr");
  keresoMezo.addEventListener('input', function(){
