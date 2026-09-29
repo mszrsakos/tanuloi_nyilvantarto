@@ -122,24 +122,27 @@ function modositasMentes() {
     tablaFrissites();
 }
 const keresoMezo = document.getElementById("keresoMezo");
-const Elemek = document.querySelectorAll("#data-table tbody tr");
- keresoMezo.addEventListener('input', function(){
-    const keresettSzo = keresoMezo.value.toLowerCase();
-    Elemek.forEach(function(elem) {
-                const nev = elem.querySelector("th:first-child").textContent.toLowerCase();
-               
-               
-                if (nev.includes(keresettSzo)) {
-                    elem.style.display = "";
-                } else {
-                    elem.style.display = "none";
-                }
-               
-        const nevRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ ]+$/;
- 
-        const osztalyRegex = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ0-9.]+$/;
- 
-        const atlagRegex = /^\d+(,\d+)?$/;
- 
-    })
+const tabla = document.getElementById("data-table");
+
+tabla.style.display = "none";
+
+keresoMezo.addEventListener('input', function() {
+    const keresettSzo = keresoMezo.value.trim().toLowerCase();
+
+    if (keresettSzo === "") {
+        tabla.style.display = "none";
+        return;
+    }
+
+    tabla.style.display = "table";
+
+    const tbody = document.querySelector("#data-table tbody");
+    const elemek = tbody.querySelectorAll("tr");
+
+    elemek.forEach(function(elem) {
+        const nev = elem.querySelector("td:first-child")?.textContent.toLowerCase() ?? "";
+        elem.style.display = nev.includes(keresettSzo) ? "" : "none";
+    });
 });
+
+tablaFrissites();
