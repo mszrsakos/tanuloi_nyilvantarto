@@ -273,50 +273,27 @@ function jegyStat(){
 }
 function statisztikak() {
 
-    let osztalyok = {};
+    let tanulokSzama = tanulok.length;
+
+    let osszeg = 0;
+    let legjobb = tanulok[0];
 
     tanulok.forEach(function(tanulo) {
+        osszeg += Number(tanulo.atlag);
 
-        if (!osztalyok[tanulo.osztaly]) {
-            osztalyok[tanulo.osztaly] = [];
+        if (Number(tanulo.atlag) > Number(legjobb.atlag)) {
+            legjobb = tanulo;
         }
-
-        osztalyok[tanulo.osztaly].push(tanulo);
     });
 
-    console.log(osztalyok);
+    let osztalyAtlag = osszeg / tanulokSzama;
 
-    for (let osztaly in osztalyok) {
-
-        let tanulokAzOsztalyban = osztalyok[osztaly];
-
-        
-        let tanulokSzama = tanulokAzOsztalyban.length;
-
-       
-        let osszeg = 0;
-
-        tanulokAzOsztalyban.forEach(function(tanulo) {
-            osszeg += Number(tanulo.atlag);
-        });
-
-        let osztalyAtlag = osszeg / tanulokSzama;
-
-        
-        let legjobb = tanulokAzOsztalyban[0];
-
-        tanulokAzOsztalyban.forEach(function(tanulo) {
-            if (Number(tanulo.atlag) > Number(legjobb.atlag)) {
-                legjobb = tanulo;
-            }
-        });
-
-        console.log("Osztály: " + osztaly);
-        console.log("Tanulók száma: " + tanulokSzama);
-        console.log("Osztályátlag: " + osztalyAtlag.toFixed(2));
-        console.log("Legjobb tanuló: " + legjobb.nev + " (" + legjobb.atlag + ")");
-    }
+    document.getElementById("tanulokSzama").textContent = tanulokSzama;
+    document.getElementById("osztalyAtlag").textContent = osztalyAtlag.toFixed(2);
+    document.getElementById("legjobbTanulo").textContent =
+        legjobb.nev + " (" + legjobb.atlag + ")";
 }
+
 
 tablaFrissites();
 
