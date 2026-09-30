@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <label for="kiIras"></label>
+    <label for="kiIras" id="kiIras"></label>
     <label for="nev">Név:</label>
-    <input type="text" name="nevIn" id="nevIn" placeholder="Ferenc">
+    <input type="text" name="nevIn" id="nevIn" placeholder="Kiss Ferenc">
     <label for="osztaly">Osztály:</label>
     <input type="text" name="osztIn" id="osztIn" placeholder="pl.:11.D">
     <label for="tanAvg">Tanulmányi átlag:</label>
@@ -17,15 +17,17 @@
     <button id="save" onclick="mentes()">Mentés</button>
     <br>
     <div class="modDiv">
+        <label for="modkiIras" id="modkiIras"></label>
         <label for="mod">Módosítás</label>
         <label for="ujnev">Név:</label>
         <input type="text" name="ujnevIn" id="ujnevIn" placeholder="Kiss Ferenc">
         <label for="ujosztaly">Osztály:</label>
         <input type="text" name="ujosztIn" id="ujosztIn" placeholder="pl.:11.D">
         <label for="ujTanAvg">Tanulmányi átlag:</label>
-        <input type="text" name="ujtanAvgIn" id="ujtanAvgIn" placeholder="pl.:4,32">
+        <input type="text" name="ujtanAvgIn" id="ujtanAvgIn" placeholder="pl.:4.32">
         <button id="saveMod" onclick="modositasMentes()">Mentés</button>
     </div>
+
    
      <div id="kereso">
         <search>
@@ -42,6 +44,12 @@
     </thead>
     <tbody></tbody>
 </table>
+
+    <div class="jegyStat">  
+        <label for="jegyStat">Jegystatisztika</label>
+        <button id="megjelenit" onclick="jegyStat()">Megjelenítés</button>
+        <label for="jegyStatEredmeny" id="jegyStatEredmeny"></label>
+    </div>
  
     <script src="app.js"></script>
 </body>

@@ -23,30 +23,76 @@ let tanulok=[
     nev: "Varga Máté",
     osztaly: "10.B",
     atlag: 3.6
+    },
+    {
+    nev: "Szabó Máté",
+    osztaly: "13.D",
+    atlag: 1.9
+    }
+    ,
+    {
+    nev: "Varga Eszter",
+    osztaly: "11.B",
+    atlag: 2.3
     }
 ]
  
 let modDiv=document.querySelector(".modDiv")
+modDiv.style.visibility="hidden"
 
 let kijeloltTanulo = null
 
 tablaFrissites()
 
-function mentes(){
+function mentes() {
     const kiIras = document.getElementById("kiIras");
-    let nevIn=document.getElementById("nevIn").value
-    let osztIn=document.getElementById("osztIn").value
-    let tanAvgIn=document.getElementById("tanAvgIn").value
-    tanulok.push({
-    nev: document.getElementById("nevIn").value,
-    osztaly: document.getElementById("osztIn").value,
-    atlag: document.getElementById("tanAvgIn").value
-});
-    console.log(tanulok)
 
+    let nevIn = document.getElementById("nevIn").value.trim();
+    let osztIn = document.getElementById("osztIn").value.trim();
+    let tanAvgIn = document.getElementById("tanAvgIn").value.trim();
 
-    tablaFrissites();
+    // Regexek
+    const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+ [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
+    const osztRegex = /^(1[0-3]|[1-9])\.[A-E]$/;
+    const atlagRegex = /^(?:[1-4](?:[.,]\d+)?|5(?:[.,]0+)?)$/;
+
+    try {
+        if (nevIn === "") {
+            kiIras.innerHTML = "A név mező nem lehet üres!";
+        }
+        else if (!nevRegex.test(nevIn)) {
+            kiIras.innerHTML = "A név formátuma hibás! Pl.: Szabó Anna";
+        }
+        else if (osztIn === "") {
+            kiIras.innerHTML = "Az osztály mező nem lehet üres!";
+        }
+        else if (!osztRegex.test(osztIn)) {
+            kiIras.innerHTML = "Az osztály formátuma hibás! Pl.: 11.B";
+        }
+        else if (tanAvgIn === "") {
+            kiIras.innerHTML = "Az átlag mező nem lehet üres!";
+        }
+        else if (!atlagRegex.test(tanAvgIn)) {
+            kiIras.innerHTML = "Az átlag 1 és 5 közötti szám lehet! Pl.: 4.25";
+        }
+        else {
+            kiIras.innerHTML = "";
+
+            tanulok.push({
+                nev: nevIn,
+                osztaly: osztIn,
+                atlag: tanAvgIn.replace(",", ".")
+            });
+
+            tablaFrissites();
+        }
+    }
+    catch (error) {
+        kiIras.innerHTML = `Hiba: ${error.message}`;
+    }
 }
+
+
  
 function tablaFrissites() {
     const thead = document.querySelector("#data-table thead tr");
@@ -100,6 +146,7 @@ function torles(i){
  
 function modositas(i) {
     kijeloltTanulo = i;
+    modDiv.style.visibility="visible"
     const tanulo = tanulok[i];
 
     document.getElementById("ujnevIn").value = tanulo.nev;
@@ -111,16 +158,56 @@ function modositas(i) {
 function modositasMentes() {
     if (kijeloltTanulo === null) return;
 
-    tanulok[kijeloltTanulo] = {
-        nev: document.getElementById("ujnevIn").value,
-        osztaly: document.getElementById("ujosztIn").value,
-        atlag: document.getElementById("ujtanAvgIn").value
-    };
+    const modkiIras = document.getElementById("modkiIras");
 
-    kijeloltTanulo = null;
-    modDiv.style.display = "none";
-    tablaFrissites();
+    let nevIn = document.getElementById("ujnevIn").value.trim();
+    let osztIn = document.getElementById("ujosztIn").value.trim();
+    let tanAvgIn = document.getElementById("ujtanAvgIn").value.trim();
+
+    // Regexek
+    const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+ [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
+    const osztRegex = /^(1[0-3]|[1-9])\.[A-E]$/;
+    const atlagRegex = /^(?:[1-4](?:[.,]\d+)?|5(?:[.,]0+)?)$/;
+
+    try {
+        if (nevIn === "") {
+            modkiIras.innerHTML = "A név mező nem lehet üres!";
+        }
+        else if (!nevRegex.test(nevIn)) {
+            modkiIras.innerHTML = "A név formátuma hibás! Pl.: Szabó Anna";
+        }
+        else if (osztIn === "") {
+            modkiIras.innerHTML = "Az osztály mező nem lehet üres!";
+        }
+        else if (!osztRegex.test(osztIn)) {
+            modkiIras.innerHTML = "Az osztály formátuma hibás! Pl.: 11.B";
+        }
+        else if (tanAvgIn === "") {
+            modkiIras.innerHTML = "Az átlag mező nem lehet üres!";
+        }
+        else if (!atlagRegex.test(tanAvgIn)) {
+            modkiIras.innerHTML = "Az átlag 1 és 5 közötti szám lehet! Pl.: 4.25";
+        }
+        else {
+            modkiIras.innerHTML = "";
+
+            tanulok[kijeloltTanulo] = {
+                nev: nevIn,
+                osztaly: osztIn,
+                atlag: tanAvgIn.replace(",", ".")
+            };
+
+            kijeloltTanulo = null;
+            modDiv.style.display = "none";
+            tablaFrissites();
+        }
+    }
+    catch (error) {
+        modkiIras.innerHTML = `Hiba: ${error.message}`;
+    }
 }
+
+
 const keresoMezo = document.getElementById("keresoMezo");
 const tabla = document.getElementById("data-table");
 
@@ -140,8 +227,47 @@ keresoMezo.addEventListener('input', function() {
 
     elemek.forEach(function(elem) {
         const nev = elem.querySelector("td:first-child")?.textContent.toLowerCase() ?? "";
+
         elem.style.display = nev.includes(keresettSzo) ? "" : "none";
     });
 });
+
+function jegyStat(){
+    let jeles=0;
+    let jo=0;
+    let kozepes=0;
+    let elegseges=0;
+    let elegtelen=0;
+
+    tanulok.forEach(function(tanulo){
+        let atlag=Number(tanulo.atlag);
+        if(atlag>=4.5 && atlag<=5)
+        {
+            jeles++;
+        }
+        else if(atlag>=3.5 && atlag<=4.49)
+        {
+            jo++;
+        }
+        else if(atlag>=2.5 && atlag<=3.49)
+        {
+            kozepes++;
+        }
+        else if(atlag>=2 && atlag<=2.49)
+        {
+            elegseges++;
+        }
+        else{
+            elegtelen++;
+        }
+    });
+    document.getElementById("jegyStatEredmeny").innerHTML=`
+        <p>Jeles: ${jeles} fő</p>
+        <p>Jó: ${jo} fő</p>
+        <p>Közepes: ${kozepes} fő</p>
+        <p>Elégséges: ${elegseges} fő</p>
+        <p>Elégtelen: ${elegtelen} fő</p>
+    `
+}
 
 tablaFrissites();

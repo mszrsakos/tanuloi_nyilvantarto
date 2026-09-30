@@ -1,32 +1,264 @@
 html {
     background-color: rgb(180, 216, 204);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: Arial, sans-serif;
 }
+
 body {
-    width: 100%;
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    box-sizing: border-box;
+
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 12px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-.modDiv{
-        width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 20px;
-    box-sizing: border-box;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.kereso{
-    float: right;   
+/* -------------------- */
+/* Címkék és inputok */
+/* -------------------- */
+
+label {
+    font-weight: bold;
+    color: #23423a;
 }
+
+input {
+    width: 280px;
+    padding: 10px 12px;
+    border: 2px solid #9bc8ba;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: #4f9f88;
+    box-shadow: 0 0 5px rgba(79, 159, 136, 0.4);
+}
+
+/* -------------------- */
+/* Gombok */
+/* -------------------- */
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+
+    background-color: #4f9f88;
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #397d6a;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* -------------------- */
+/* Hibaüzenetek */
+/* -------------------- */
+
+#kiIras,
+#modkiIras {
+    color: #c0392b;
+    font-weight: bold;
+    min-height: 20px;
+    text-align: center;
+}
+
+/* -------------------- */
+/* Módosítás */
+/* -------------------- */
+
+.modDiv {
+    width: 90%;
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background-color: #e8f5f0;
+    border: 2px solid #a8d5c6;
+    border-radius: 15px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* -------------------- */
+/* Kereső */
+/* -------------------- */
+
+#kereso {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#keresoMezo {
+    width: 250px;
+}
+
+/* -------------------- */
+/* Táblázat */
+/* -------------------- */
+
+#data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+#data-table th {
+    background-color: #4f9f88;
+    color: white;
+
+    padding: 12px;
+    text-align: center;
+}
+
+#data-table td {
+    padding: 10px;
+    text-align: center;
+
+    border-bottom: 1px solid #d5e7e1;
+}
+
+#data-table tr:nth-child(even) {
+    background-color: #f0f8f5;
+}
+
+#data-table tr:hover {
+    background-color: #dff1eb;
+}
+
+/* Táblázat gombjai */
+
+.modositas-gomb {
+    background-color: #e0a458;
+}
+
+.modositas-gomb:hover {
+    background-color: #c98735;
+}
+
+.torles-gomb {
+    background-color: #d9534f;
+}
+
+.torles-gomb:hover {
+    background-color: #b83c38;
+}
+
+/* -------------------- */
+/* Jegystatisztika */
+/* -------------------- */
+
+.jegyStat {
+    width: 90%;
+    max-width: 500px;
+
+    margin-top: 20px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    background-color: #e8f5f0;
+    border: 2px solid #a8d5c6;
+    border-radius: 15px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.jegyStat > label:first-child {
+    font-size: 20px;
+    color: #23423a;
+}
+
+#jegyStatEredmeny {
+    width: 100%;
+    text-align: center;
+    color: #23423a;
+}
+
+#jegyStatEredmeny p {
+    margin: 6px 0;
+    padding: 8px;
+
+    background-color: white;
+    border-radius: 7px;
+}
+
+/* -------------------- */
+/* Reszponzív */
+/* -------------------- */
+
+@media (max-width: 700px) {
+
+    body {
+        width: 95%;
+        padding: 20px 10px;
+    }
+
+    input {
+        width: 90%;
+    }
+
+    #kereso {
+        justify-content: center;
+    }
+
+    #data-table {
+        font-size: 13px;
+    }
+
+    #data-table th,
+    #data-table td {
+        padding: 7px 4px;
+    }
+
+    .modDiv,
+    .jegyStat {
+        width: 100%;
+    }
+}
+
