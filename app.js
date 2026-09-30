@@ -138,7 +138,9 @@ function tablaFrissites() {
  
         tbody.appendChild(sor);
     });
+    statisztikak();
 }
+
 function torles(i){
     tanulok.splice(i, 1)
     tablaFrissites()
@@ -269,8 +271,55 @@ function jegyStat(){
         <p>Elégtelen: ${elegtelen} fő</p>
     `
 }
+function statisztikak() {
+
+    let osztalyok = {};
+
+    tanulok.forEach(function(tanulo) {
+
+        if (!osztalyok[tanulo.osztaly]) {
+            osztalyok[tanulo.osztaly] = [];
+        }
+
+        osztalyok[tanulo.osztaly].push(tanulo);
+    });
+
+    console.log(osztalyok);
+
+    for (let osztaly in osztalyok) {
+
+        let tanulokAzOsztalyban = osztalyok[osztaly];
+
+        
+        let tanulokSzama = tanulokAzOsztalyban.length;
+
+       
+        let osszeg = 0;
+
+        tanulokAzOsztalyban.forEach(function(tanulo) {
+            osszeg += Number(tanulo.atlag);
+        });
+
+        let osztalyAtlag = osszeg / tanulokSzama;
+
+        
+        let legjobb = tanulokAzOsztalyban[0];
+
+        tanulokAzOsztalyban.forEach(function(tanulo) {
+            if (Number(tanulo.atlag) > Number(legjobb.atlag)) {
+                legjobb = tanulo;
+            }
+        });
+
+        console.log("Osztály: " + osztaly);
+        console.log("Tanulók száma: " + tanulokSzama);
+        console.log("Osztályátlag: " + osztalyAtlag.toFixed(2));
+        console.log("Legjobb tanuló: " + legjobb.nev + " (" + legjobb.atlag + ")");
+    }
+}
 
 tablaFrissites();
+
 
 function rendezesAtlagSzerint(){
     tanulok.sort(function(a, b) {
@@ -286,3 +335,4 @@ function rendezesAtlagSzerint(){
 
     tablaFrissites();
 }
+statisztikak();
