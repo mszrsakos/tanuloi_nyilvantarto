@@ -22,9 +22,6 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* -------------------- */
-/* Címkék és inputok */
-/* -------------------- */
 
 label {
     font-weight: bold;
@@ -48,9 +45,6 @@ input:focus {
     box-shadow: 0 0 5px rgba(79, 159, 136, 0.4);
 }
 
-/* -------------------- */
-/* Gombok */
-/* -------------------- */
 
 button {
     padding: 10px 18px;
@@ -76,9 +70,6 @@ button:active {
     transform: translateY(0);
 }
 
-/* -------------------- */
-/* Hibaüzenetek */
-/* -------------------- */
 
 #kiIras,
 #modkiIras {
@@ -88,9 +79,6 @@ button:active {
     text-align: center;
 }
 
-/* -------------------- */
-/* Módosítás */
-/* -------------------- */
 
 .modDiv {
     width: 90%;
@@ -113,9 +101,6 @@ button:active {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* -------------------- */
-/* Kereső */
-/* -------------------- */
 
 #kereso {
     width: 100%;
@@ -129,9 +114,6 @@ button:active {
     width: 250px;
 }
 
-/* -------------------- */
-/* Táblázat */
-/* -------------------- */
 
 #data-table {
     width: 100%;
@@ -168,7 +150,7 @@ button:active {
     background-color: #dff1eb;
 }
 
-/* Táblázat gombjai */
+
 
 .modositas-gomb {
     background-color: #e0a458;
@@ -186,9 +168,7 @@ button:active {
     background-color: #b83c38;
 }
 
-/* -------------------- */
-/* Jegystatisztika */
-/* -------------------- */
+
 
 .jegyStat {
     width: 90%;
@@ -228,9 +208,7 @@ button:active {
     border-radius: 7px;
 }
 
-/* -------------------- */
-/* Reszponzív */
-/* -------------------- */
+
 
 @media (max-width: 700px) {
 
@@ -262,3 +240,41 @@ button:active {
     }
 }
 
+
+.rendezes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.rendezes button {
+    background-color: #4f9f88;
+}
+
+.rendezes button:hover {
+    background-color: #397d6a;
+}
+
+
+#data-table tr.kituno {
+    background-color: #b8f2c8 !important;
+}
+
+
+#data-table tr.nem-kituno {
+    background-color: #f5b5b5 !important;
+}
+
+
+
+#data-table tr.kituno:hover {
+    background-color: #91e6a9 !important;
+}
+
+#data-table tr.nem-kituno:hover {
+    background-color: #ee9292 !important;
+}

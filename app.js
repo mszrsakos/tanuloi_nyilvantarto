@@ -271,3 +271,18 @@ function jegyStat(){
 }
 
 tablaFrissites();
+
+function rendezesAtlagSzerint(){
+    tanulok.sort(function(a, b) {
+
+        let osztalySorrend = a.osztaly.localeCompare(b.osztaly, "hu");
+
+        if (osztalySorrend !== 0) {
+            return osztalySorrend;
+        }
+
+        return Number(b.atlag) - Number(a.atlag);
+    });
+
+    tablaFrissites();
+}
