@@ -278,3 +278,30 @@ button:active {
 #data-table tr.nem-kituno:hover {
     background-color: #ee9292 !important;
 }
+
+#Statisztikak {
+    margin: 30px auto;
+    padding: 25px;
+    max-width: 1000px;
+}
+
+#Statisztikak h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#Statisztikak p {
+    display: inline-block;
+    vertical-align: top;
+    width: 220px;
+    margin: 10px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    line-height: 1.6;
+}
+
+#Statisztikak b {
+    font-size: 20px;
+}

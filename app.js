@@ -273,27 +273,46 @@ function jegyStat(){
 }
 function statisztikak() {
 
-    let tanulokSzama = tanulok.length;
-
-    let osszeg = 0;
-    let legjobb = tanulok[0];
+    let osztalyok = {};
 
     tanulok.forEach(function(tanulo) {
-        osszeg += Number(tanulo.atlag);
 
-        if (Number(tanulo.atlag) > Number(legjobb.atlag)) {
-            legjobb = tanulo;
+        let osztaly = tanulo.osztaly;
+
+        if (!osztalyok[osztaly]) {
+            osztalyok[osztaly] = {
+                osszeg: 0,
+                darab: 0,
+                legjobb: tanulo
+            };
+        }
+
+        osztalyok[osztaly].osszeg += Number(tanulo.atlag);
+        osztalyok[osztaly].darab++;
+
+        if (Number(tanulo.atlag) > Number(osztalyok[osztaly].legjobb.atlag)) {
+            osztalyok[osztaly].legjobb = tanulo;
         }
     });
 
-    let osztalyAtlag = osszeg / tanulokSzama;
+    let kiiras = "";
 
-    document.getElementById("tanulokSzama").textContent = tanulokSzama;
-    document.getElementById("osztalyAtlag").textContent = osztalyAtlag.toFixed(2);
-    document.getElementById("legjobbTanulo").textContent =
-        legjobb.nev + " (" + legjobb.atlag + ")";
+    for (let osztaly in osztalyok) {
+
+        let adat = osztalyok[osztaly];
+
+        let atlag = adat.osszeg / adat.darab;
+
+        kiiras += "<p>";
+        kiiras += "<b>" + osztaly + "</b><br>";
+        kiiras += "Osztályátlag: " + atlag.toFixed(2) + "<br>";
+        kiiras += "Legjobb tanuló: " + adat.legjobb.nev;
+        kiiras += " (" + adat.legjobb.atlag + ")";
+        kiiras += "</p>";
+    }
+
+    document.getElementById("Statisztikak").innerHTML = kiiras;
 }
-
 
 tablaFrissites();
 
