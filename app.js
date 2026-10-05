@@ -54,7 +54,7 @@ function mentes() {
 
     // Regexek
     const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+ [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
-    const osztRegex = /^(1[0-3]|[1-9])\.[A-E]$/;
+    const osztRegex = /^(1[0-3]|[1-9])\.[A-Z]$/;
     const atlagRegex = /^(?:[1-4](?:[.,]\d+)?|5(?:[.,]0+)?)$/;
 
     try {
@@ -196,7 +196,7 @@ function modositasMentes() {
 
     // Regexek
     const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+ [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
-    const osztRegex = /^(1[0-3]|[1-9])\.[A-E]$/;
+    const osztRegex = /^(1[0-3]|[1-9])\.[A-Za-z]$/;
     const atlagRegex = /^(?:[1-4](?:[.,]\d+)?|5(?:[.,]0+)?)$/;
 
     try {
@@ -242,18 +242,24 @@ const keresoMezo = document.getElementById("keresoMezo");
 const tabla = document.getElementById("data-table");
 
 
-keresoMezo.addEventListener('input', function() {
+keresoMezo.addEventListener("input", function() {
     const keresettSzo = keresoMezo.value.trim().toLowerCase();
 
+    const tbody = document.querySelector("#data-table tbody");
+    const elemek = tbody.querySelectorAll("tr");
+
+
     if (keresettSzo === "") {
-        tabla.style.display = "none";
+        tabla.style.display = "table";
+
+        elemek.forEach(function(elem) {
+            elem.style.display = "";
+        });
+
         return;
     }
 
     tabla.style.display = "table";
-
-    const tbody = document.querySelector("#data-table tbody");
-    const elemek = tbody.querySelectorAll("tr");
 
     elemek.forEach(function(elem) {
         const nev = elem.querySelector("td:first-child")?.textContent.toLowerCase() ?? "";
@@ -261,6 +267,7 @@ keresoMezo.addEventListener('input', function() {
         elem.style.display = nev.includes(keresettSzo) ? "" : "none";
     });
 });
+
 
 function jegyStat(){
     let jeles=0;
