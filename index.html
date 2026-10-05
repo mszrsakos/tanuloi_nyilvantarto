@@ -43,6 +43,13 @@
     <button onclick="rendezesNevSzerint()">
         Rendezés név szerint
     </button>
+        <button onclick="csakJelesek()">
+        Csak kitűnő tanulók
+    </button>
+
+    <button onclick="osszesTanulo()">
+        Összes tanuló
+    </button>
 </div>
  
 <table id="data-table">
@@ -57,10 +64,13 @@
         <button id="megjelenit" onclick="jegyStat()">Megjelenítés</button>
         <label for="jegyStatEredmeny" id="jegyStatEredmeny"></label>
     </div>
+
     <div id="Statisztikak">
-    <button onclick="statisztikak()">Statisztikák</button>
-    </div>
-    <div id="Statisztikak">
+        <p>Tanulók száma: <span id="tanulokSzama"></span> fő</p>
+
+        <p>Osztályátlag: <span id="osztalyAtlag"></span></p>
+
+        <p>Legjobb tanuló: <span id="legjobbTanulo"></span></p>
     </div>
  
     <script src="app.js"></script>

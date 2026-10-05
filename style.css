@@ -150,6 +150,13 @@ button:active {
     background-color: #dff1eb;
 }
 
+#data-table tr.jeles {
+    background-color: #d9f7d8;
+}
+
+#data-table tr.elegtelen {
+    background-color: #f7d7d7;
+}
 
 
 .modositas-gomb {
@@ -304,4 +311,11 @@ button:active {
 
 #Statisztikak b {
     font-size: 20px;
+}
+.jeles {
+    background-color: lightgreen;
+}
+
+.elegtelen {
+    background-color: lightcoral;
 }

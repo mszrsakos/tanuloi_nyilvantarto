@@ -41,6 +41,7 @@ let modDiv=document.querySelector(".modDiv")
 modDiv.style.visibility="hidden"
 
 let kijeloltTanulo = null
+let csakJeles = false
 
 tablaFrissites()
 
@@ -108,8 +109,25 @@ function tablaFrissites() {
  
     tbody.innerHTML = "";
  
-    tanulok.forEach(function(tanulo, i) {
+    const megjelenitettTanulok = tanulok
+        .map(function(tanulo, index) {
+            return { tanulo: tanulo, index: index };
+        })
+        .filter(function(item) {
+            return !csakJeles || Number(item.tanulo.atlag) >= 4.5;
+        });
+ 
+    megjelenitettTanulok.forEach(function(item) {
+        const tanulo = item.tanulo;
+        const tanuloIndex = item.index;
         const sor = document.createElement("tr");
+
+        const atlag = Number(tanulo.atlag);
+        if (atlag >= 4.5) {
+            sor.classList.add("jeles");
+        } else if (atlag < 2) {
+            sor.classList.add("elegtelen");
+        }
  
         sor.innerHTML = `
             <td>${tanulo.nev}</td>
@@ -126,20 +144,30 @@ function tablaFrissites() {
  
  
         gomb2.addEventListener("click", function() {
-            torles(i);
+            torles(tanuloIndex);
         });
  
         const gomb = sor.querySelector(".modositas-gomb");
  
  
         gomb.addEventListener("click", function() {
-            modositas(i);
+            modositas(tanuloIndex);
         });
  
         tbody.appendChild(sor);
     });
     statisztikak();
 }
+function csakJelesek() {
+    csakJeles = true;
+    tablaFrissites();
+}
+
+function osszesTanulo() {
+    csakJeles = false;
+    tablaFrissites();
+}
+
 
 function torles(i){
     tanulok.splice(i, 1)
@@ -327,6 +355,14 @@ function rendezesAtlagSzerint(){
         }
 
         return Number(b.atlag) - Number(a.atlag);
+    });
+
+    tablaFrissites();
+}
+
+function rendezesNevSzerint() {
+    tanulok.sort(function(a, b) {
+        return a.nev.localeCompare(b.nev, "hu");
     });
 
     tablaFrissites();
