@@ -53,9 +53,11 @@ function mentes() {
     let tanAvgIn = document.getElementById("tanAvgIn").value.trim();
 
     // Regexek
-    const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+ [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
+    const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+(?:[ -][A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+){0,2} [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
     const osztRegex = /^(1[0-3]|[1-9])\.[A-Z]$/;
-    const atlagRegex = /^(?:[1-4](?:[.,]\d+)?|5(?:[.,]0+)?)$/;
+    const atlagRegex = /^(?:[1-4](?:[.,]\d{1,2})?|5(?:[.,]0{1,2})?)$/;
+
+
 
     try {
         if (nevIn === "") {
@@ -80,10 +82,11 @@ function mentes() {
             kiIras.innerHTML = "";
 
             tanulok.push({
-                nev: nevIn,
-                osztaly: osztIn,
-                atlag: tanAvgIn.replace(",", ".")
-            });
+            nev: nevIn,
+            osztaly: osztIn,
+            atlag: Number(tanAvgIn.replace(",", "."))
+        });
+
 
             tablaFrissites();
         }
@@ -181,8 +184,11 @@ function modositas(i) {
 
     document.getElementById("ujnevIn").value = tanulo.nev;
     document.getElementById("ujosztIn").value = tanulo.osztaly;
-    document.getElementById("ujtanAvgIn").value = tanulo.atlag;
-    modDiv.style.display = "flex";
+    document.getElementById("ujtanAvgIn").value = Number(tanulo.atlag).toFixed(2);
+        modDiv.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
 function modositasMentes() {
@@ -195,9 +201,11 @@ function modositasMentes() {
     let tanAvgIn = document.getElementById("ujtanAvgIn").value.trim();
 
     // Regexek
-    const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+ [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
-    const osztRegex = /^(1[0-3]|[1-9])\.[A-Za-z]$/;
-    const atlagRegex = /^(?:[1-4](?:[.,]\d+)?|5(?:[.,]0+)?)$/;
+    const nevRegex = /^[A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+(?:[ -][A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+){0,2} [A-ZÁÉÍÓÖŐÚÜŰ][a-záéíóöőúüű]+$/;
+    const osztRegex = /^(1[0-3]|[1-9])\.[A-Z]$/;
+    const atlagRegex = /^(?:[1-4](?:[.,]\d{1,2})?|5(?:[.,]0{1,2})?)$/;
+
+
 
     try {
         if (nevIn === "") {
@@ -216,7 +224,7 @@ function modositasMentes() {
             modkiIras.innerHTML = "Az átlag mező nem lehet üres!";
         }
         else if (!atlagRegex.test(tanAvgIn)) {
-            modkiIras.innerHTML = "Az átlag 1 és 5 közötti szám lehet! Pl.: 4.25";
+            modkiIras.innerHTML = "Az átlag 1 és 5 közötti szám lehet! Legfeljebb 2 tizedesjegyet adj meg! Pl.: 4.25";
         }
         else {
             modkiIras.innerHTML = "";
@@ -224,7 +232,8 @@ function modositasMentes() {
             tanulok[kijeloltTanulo] = {
                 nev: nevIn,
                 osztaly: osztIn,
-                atlag: tanAvgIn.replace(",", ".")
+                atlag: Number(tanAvgIn.replace(",", "."))
+
             };
 
             kijeloltTanulo = null;
