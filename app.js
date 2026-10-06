@@ -224,7 +224,7 @@ function modositasMentes() {
             modkiIras.innerHTML = "Az átlag mező nem lehet üres!";
         }
         else if (!atlagRegex.test(tanAvgIn)) {
-            modkiIras.innerHTML = "Az átlag 1 és 5 közötti szám lehet! Legfeljebb 2 tizedesjegyet adj meg! Pl.: 4.25";
+            modkiIras.innerHTML = "Az átlag 1 és 5 közötti szám lehet! Legfeljebb 2 tizedesjegyet adj meg! Pl.: 4,25";
         }
         else {
             modkiIras.innerHTML = "";
