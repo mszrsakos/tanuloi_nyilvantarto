@@ -15,6 +15,16 @@ let tanulok=[
     atlag: 4.5
     },
     {
+    nev: "Kovács Nándor",
+    osztaly: "11.C",
+    atlag: 3.4
+    },
+    {
+    nev: "Lakatos Elíz",
+    osztaly: "11.C",
+    atlag: 1.2
+    },
+    {
     nev: "Tóth Eszter",
     osztaly: "13.A",
     atlag: 4.7
@@ -256,7 +266,6 @@ keresoMezo.addEventListener("input", function() {
 
     const tbody = document.querySelector("#data-table tbody");
     const elemek = tbody.querySelectorAll("tr");
-
 
     if (keresettSzo === "") {
         tabla.style.display = "table";
